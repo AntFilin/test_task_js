@@ -1,0 +1,26 @@
+table {
+  border:1px solid black;
+  margin: 0 auto;
+}
+th {
+	cursor: pointer;
+  }
+
+  th:hover {
+	background: #7ccd7c ;
+  }
+  
+  thead [data-sort='up']::after {
+    content: '▼';
+	font-size: .5em;
+  }
+  
+  thead [data-sort='down']::after {
+    content: '▲';
+	font-size: .5em;
+  }
+
+ .active {
+	font-size: 1em;
+    color: #237ace;
+  }

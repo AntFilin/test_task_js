@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+  </head>
+<script type="text/javascript">
+  $(function(){
+    
+    $.getJSON('users.json', function(data) {
+            for(var i=0;i<data.users.length;i++){
+                $('#users').append('<tr><td>' + data.users[i].id + '</td><td>' + data.users[i].firstName + '</td><td>' + data.users[i].lastName + '</td><td>' + data.users[i].email + '</td><td>' + data.users[i].phone + '</td><tr>' );
+                }
+    });
+});
+</script>
+  <body>
+<table id="grid" onClick="sortCols(event)">
+  <thead>
+    <tr>
+      <th data-cols="0" data-sort="">ID</th>
+      <th data-cols="1" data-sort="">Имя</th>
+      <th data-cols="2" data-sort="">Фамилия</th>
+      <th data-cols="3" data-sort="">email</th>
+      <th data-cols="4" data-sort="">Телефон</th>
+    </tr>
+  </thead>
+  <tbody >
+    <tr>
+      <td>576</td>
+      <td>James</td>
+      <td>Swayngim</td>
+      <td>KMyzuka@curabitur.net</td>
+      <td>(465)125-4834</td>
+    </tr>
+    <tr>
+      <td>22</td>
+      <td>Sheryl</td>
+      <td>Kem</td>
+      <td>CFlanigan@turpis.org</td>
+      <td>(736)199-5294</td>
+    </tr>
+    <tr>
+      <td>459</td>
+      <td>Phyllis</td>
+      <td>Komppa</td>
+      <td>LHess@sit.com</td>
+      <td>(109)994-8885</td>
+    </tr>
+    <tr>
+      <td>334</td>
+      <td>Ishtiaq</td>
+      <td>Odle</td>
+      <td>HCarey@suspendisse.ly</td>
+      <td>(987)611-9653</td>
+    </tr>
+    <tr>
+      <td>625</td>
+      <td>Keana</td>
+      <td>Ritchie</td>
+      <td>KMitchell@donec.ly</td>
+      <td>(440)659-8641</td>
+    </tr>
+      <td>414</td>
+      <td>Jeannine</td>
+      <td>Emerson</td>
+      <td>ESchuster@sed.gov</td>
+      <td>(607)411-9075</td>
+    </tr>
+    <tr>
+      <td>396</td>
+      <td>Petr</td>
+      <td>Mcinvale</td>
+      <td>BChow@sed.ly</td>
+      <td>(180)508-3132</td>
+    </tr>
+    <tr>
+      <td>528</td>
+      <td>Diana</td>
+      <td>Friend</td>
+      <td>LKoprowski@odio.ly</td>
+      <td>(472)816-0583</td>
+    </tr>
+    <tr>
+      <td>77</td>
+      <td>Wazir</td>
+      <td>Wood</td>
+      <td>STeti@aenean.io</td>
+      <td>(700)302-0823</td>
+    </tr>
+    <tr>
+      <td>335</td>
+      <td>Gabriela</td>
+      <td>Helgren</td>
+      <td>RKasprzak@vitae.io</td>
+      <td>(406)441-0017</td>
+    </tr>
+  </tbody>
+</table>
+
+<script type="text/javascript">
+function sortCols (event) {
+  event = event || window.event;
+  var target = event.target || event.srcElement;
+  if (target.tagName=="TH") {
+  var trs = grid.querySelector('tbody').rows;
+  if (target.dataset.sort=='down' || !target.dataset.sort) {
+      Array.prototype.slice.call(trs).sort(compareElemUp).forEach(elem=>grid.querySelector('tbody').appendChild(elem));
+    target.dataset.sort='up';
+  } else {
+    Array.prototype.slice.call(trs).sort(compareElemDown).forEach(elem=>grid.querySelector('tbody').appendChild(elem));
+    target.dataset.sort='down';
+  }
+  var i =0;
+  while (target.parentNode.children[i]) {
+    target.parentNode.children[i].classList.remove('active');
+    i+=1;
+  }
+  target.classList.add('active');
+  }
+}
+
+
+function compareElemUp (a, b) {
+  event = event || window.event;
+  var target = event.target || event.srcElement;
+  a = a.cells[parseInt(target.dataset.cols)].textContent;
+  b = b.cells[parseInt(target.dataset.cols)].textContent;
+  if ((isFinite(a) && !isNaN(parseFloat(a))) && (isFinite(b) && !isNaN(parseFloat(b)))){
+  return a-b;
+  } else {
+    if(a>=b) {return 1} else {return -1};
+  }
+} 
+
+function compareElemDown (a, b) {
+  event = event || window.event;
+  var target = event.target || event.srcElement;
+  a = a.cells[parseInt(target.dataset.cols)].textContent;
+  b = b.cells[parseInt(target.dataset.cols)].textContent;
+  if ((isFinite(a) && !isNaN(parseFloat(a))) && (isFinite(b) && !isNaN(parseFloat(b)))){
+  return b-a;
+  } else {
+    if(a>=b) {return -1} else {return 1};
+  }
+} 
+</script>
+  </body>
+
+</html>
